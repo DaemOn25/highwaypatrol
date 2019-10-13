@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "789370008262",
+    "firebase_url": "https://highway-patrol-48c8d.firebaseio.com",
+    "project_id": "highway-patrol-48c8d",
+    "storage_bucket": "highway-patrol-48c8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789370008262:android:2dd5d87da573b660e09dc7",
+        "android_client_info": {
+          "package_name": "com.daemon.Highway_Patrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789370008262-oijtkgl3v7ich6rt6e4o2ab8oj56gifs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjsYlcf9ldPVQfFRGL_Tw9cg7H3bIO678"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789370008262-oijtkgl3v7ich6rt6e4o2ab8oj56gifs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

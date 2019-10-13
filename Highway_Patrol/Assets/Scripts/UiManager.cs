@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Proyecto26;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,14 +9,15 @@ public class UiManager : MonoBehaviour
 {
     public Button[] buttons;
     public Text scoreText;
+    public Text aliasText;
     public GameObject exitDestroy;     //making an instance of another gameobject
     public GameObject pauseText;       //text change of pause
     public AudioManager am;            // object for audio manager class
-    string screenName; 
-     
+
+    string screenName;
 
     bool gameover;
-    int score;
+    public static int score;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +29,15 @@ public class UiManager : MonoBehaviour
         score = 0;
         gameover = false;
         InvokeRepeating("ScoreUpdate", 1.0f, 0.5f);
+
+        aliasText.text = "ALIAS: " + AuthManager.playerName;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreText.text = "SCORE: " + score;
-      
     }
 
     void ScoreUpdate()
@@ -61,6 +65,7 @@ public class UiManager : MonoBehaviour
 
     public void GameOver()
     {
+        AuthManager.PostToDatabase();
         exitDestroy.SetActive(true);  //setting other game object active
         gameover = true;
         foreach(Button button in buttons)   //loop for arrays(will itterate till last element of array 
@@ -69,6 +74,9 @@ public class UiManager : MonoBehaviour
                                                  //this will active all the buttons when this function is called
         }
     }
+
+ 
+   
 
     public void Pause()
     {

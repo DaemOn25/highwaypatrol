@@ -13,6 +13,8 @@ public class UiManager : MonoBehaviour
     public GameObject exitDestroy;     //making an instance of another gameobject
     public GameObject pauseText;       //text change of pause
     public AudioManager am;            // object for audio manager class
+    public TrackMove tm;              //object for track move class
+    public CarSpawner cs;             //object for carspawner class
 
     string screenName;
 
@@ -42,19 +44,16 @@ public class UiManager : MonoBehaviour
 
     void ScoreUpdate()
     {
-        if (screenName == "Level1")
+        if (score >= 50)
         {
-            if (score >= 20)
-            {
-                SceneManager.LoadScene("Level2Intro");
-            }
+            tm.speed = 5f;
+            cs.delay_timer = 0.6f;
+                
         }
-        else if(screenName == "Level2")
+
+        if (score >= 100)
         {
-            if(score >= 10)
-            {
-                SceneManager.LoadScene("FINAL");
-            }
+            SceneManager.LoadScene("FINAL");
         }
 
         if (!gameover)
@@ -75,39 +74,11 @@ public class UiManager : MonoBehaviour
         }
     }
 
- 
-   
-
-    public void Pause()
+    public void Level()
     {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-            pauseText.GetComponentInChildren<Text>().text = "l>";
-            am.sound.Pause();
-        }
-        else if (Time.timeScale == 0)
-        {
-            Time.timeScale = 1;
-            pauseText.GetComponentInChildren<Text>().text = "ll";
-            am.sound.Play();
-        }
+        SceneManager.LoadScene("Level");
     }
 
-    public void Level2Intro()
-    {
-        SceneManager.LoadScene("Level2Intro");
-    }
-
-    public void Level1()
-    {
-        SceneManager.LoadScene("Level1");
-    }
-
-    public void Level2()
-    {
-        SceneManager.LoadScene("Level2");
-    }
 
     public void HomeMenu()
     {
@@ -122,6 +93,11 @@ public class UiManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void Sign()
+    {
+        SceneManager.LoadScene("Authentication");
     }
 
 }

@@ -14,18 +14,7 @@ public class CarSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Scene currentscreen = SceneManager.GetActiveScene();
-
-        if (currentscreen.name == "Level1")
-        {
-            delay_timer = 0.8f;
-        }
-
-        else if (currentscreen.name == "Level2")
-        {
-            delay_timer = 0.6f;
-        }
-
+        delay_timer = 0.8f;
         timer = delay_timer;
     }
 

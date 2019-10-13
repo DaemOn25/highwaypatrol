@@ -11,18 +11,7 @@ public class TrackMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Scene currentscreen = SceneManager.GetActiveScene();
-
-        if(currentscreen.name == "Level1")
-        {
             speed = 3f;
-
-        }
-
-        else if(currentscreen.name == "Level2")
-        {
-            speed = 5f;
-        }
     }
 
     // Update is called once per frame

@@ -96,7 +96,7 @@
     <Compile Include="Assets\Scripts\EcarMove.cs" />
     <Compile Include="Assets\Scripts\LevelChanger.cs" />
     <Compile Include="Assets\Scripts\MenuMute.cs" />
-    <Compile Include="Assets\Scripts\ShowToast.cs" />
+    <Compile Include="Assets\Scripts\PausePlay.cs" />
     <Compile Include="Assets\Scripts\TrackMove.cs" />
     <Compile Include="Assets\Scripts\UiManager.cs" />
     <Compile Include="Assets\Scripts\User.cs" />

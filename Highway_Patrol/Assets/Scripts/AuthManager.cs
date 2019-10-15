@@ -11,7 +11,7 @@ public class AuthManager : MonoBehaviour
 {
     public static string localId;
     public static string playerName;
-    private static string idToken;
+    public static string idToken;
     private string getLocalId;
 
 
@@ -32,12 +32,13 @@ public class AuthManager : MonoBehaviour
     public Text chkText;
     public Text signchkText;
     public Text loginchkText;
+    public Text tb;                      //text box instance
 
     public static fsSerializer serializer = new fsSerializer();   //object for full serializer 
 
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -54,6 +55,7 @@ public class AuthManager : MonoBehaviour
         else
         {
             Debug.Log("Username field empty");
+            tb.text = "Console: " + "Username field empty.";
         }
 
     }
@@ -64,14 +66,20 @@ public class AuthManager : MonoBehaviour
         SignInUser(emailText.text, passwordText.text);
     }
 
-    public static void PostToDatabase(bool emptyScore = false)
+    public static void PostToDatabase(bool emptyScore = false , string idTokentemp ="")
     {
         User user = new User();
+
+        if(idTokentemp =="")
+        {
+            idTokentemp = idToken;
+        }
+
         if (emptyScore)
         {
             UiManager.score = 0;
         }
-        //RestClient.Post("https://highway-patrol-48c8d.firebaseio.com/.json" , user );
+                                        //RestClient.Post("https://highway-patrol-48c8d.firebaseio.com/.json" , user );
         RestClient.Put(dbUrl + "/" + localId + ".json?auth=" + idToken, user);
     }
 
@@ -91,19 +99,25 @@ public class AuthManager : MonoBehaviour
         string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
         RestClient.Post<AuthResponse>("https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" + authKey, userData).Then(response =>
         {
+
+            string emailVerification = "{\"requestType\":\"VERIFY_EMAIL\",\"idToken\":\"" + response.idToken + "\"}";
+            RestClient.Post("https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=" + authKey,emailVerification);
+            //^this post request sent confirmation email
+            
             localId = response.localId;
-            idToken = response.idToken;
             playerName = username;
+            //idToken = response.idToken;                 //not storing id token while signup coz need to verify while sigin
 
             Debug.Log(localId);
-            Debug.Log(idToken);
             Debug.Log(playerName);
 
-            PostToDatabase(true);
+            PostToDatabase(true , response.idToken);
+            tb.text = "Console: " + "SignUp successful, verify email before login";
 
         }).Catch(error =>
         {
             Debug.Log(error);
+            tb.text = "Console: " + "Signup failed, try again";
         });
     }
 
@@ -112,17 +126,41 @@ public class AuthManager : MonoBehaviour
         string userData = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"returnSecureToken\":true}";
         RestClient.Post<AuthResponse>("https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" + authKey, userData).Then(response =>
         {
-            localId = response.localId;
-            idToken = response.idToken;
-            GetUsername();
+            string emailVerification = "{\"idToken\":\"" + response.idToken + "\"}";
+            RestClient.Post(
+                   "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=" + authKey,
+                   emailVerification).Then(
+                   emailResponse =>
+                   {
 
-            Debug.Log(localId);
-            Debug.Log(idToken);
+                       fsData emailVerificationData = fsJsonParser.Parse(emailResponse.Text);
+                       EmailConfirm emailConfirmationInfo = new EmailConfirm();
+                       serializer.TryDeserialize(emailVerificationData, ref emailConfirmationInfo).AssertSuccessWithoutWarnings();
 
-            SceneManager.LoadScene("Home_Menu");
+                       if (emailConfirmationInfo.users[0].emailVerified)
+                       {
+                           idToken = response.idToken;
+                           localId = response.localId;
+                           GetUsername();
+
+                           Debug.Log(localId);
+                           Debug.Log(idToken);
+                           Debug.Log("SigIn successful");
+                           tb.text = "Console: " + "Login successful";
+
+                           SceneManager.LoadScene("Home_Menu");
+                       }
+                       else
+                       {
+                           Debug.Log("You are stupid, you need to verify your email dumb");
+                           tb.text = "Console: " + "Login failed, email not verified";
+                       }
+                   });
+           
         }).Catch(error =>
         {
             Debug.Log(error);
+            tb.text = "Console: " + "Login failed, email/password incorrect";
         });
     }
 

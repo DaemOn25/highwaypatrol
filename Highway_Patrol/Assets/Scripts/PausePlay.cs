@@ -12,7 +12,6 @@ public class PausePlay : MonoBehaviour
     public Sprite paus;
     public Sprite playy;
 
-
     public void Pause()
     {
         //if (Time.timeScale == 1)
@@ -45,7 +44,5 @@ public class PausePlay : MonoBehaviour
             Time.timeScale = 1;
             am.sound.Play();
         }
-
     }
-
 }

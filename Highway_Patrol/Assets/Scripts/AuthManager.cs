@@ -14,7 +14,6 @@ public class AuthManager : MonoBehaviour
     public static string idToken;
     private string getLocalId;
 
-
     private static string dbUrl = "https://highway-patrol-48c8d.firebaseio.com/users";
     private string authKey = "AIzaSyDM6Bty_vdpL2uVT-QYx_6B-7zBHHDNH9g";
 
@@ -229,7 +228,6 @@ public class AuthManager : MonoBehaviour
     //    return flag;
     
     //}
-
 
     public void Exit()
     {

@@ -44,16 +44,16 @@ public class UiManager : MonoBehaviour
 
     void ScoreUpdate()
     {
-        if (score >= 50)
+        if (score >= 20)
         {
             tm.speed = 5f;
             cs.delay_timer = 0.6f;
                 
         }
 
-        if (score >= 100)
+        if (score >= 50)
         {
-            SceneManager.LoadScene("FINAL");
+            SceneManager.LoadScene("Credits");
         }
 
         if (!gameover)
@@ -79,20 +79,9 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene("Level");
     }
 
-
     public void HomeMenu()
     {
         SceneManager.LoadScene("Home_Menu");
-    }
-
-    public void Final()
-    {
-        SceneManager.LoadScene("FINAL");
-    }
-
-    public void Exit()
-    {
-        Application.Quit();
     }
 
     public void Sign()

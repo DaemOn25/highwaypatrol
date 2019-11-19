@@ -10,20 +10,29 @@ public class LevelChanger : MonoBehaviour
         SceneManager.LoadScene("Level");
     }
 
-
     public void HomeMenu()
     {
         SceneManager.LoadScene("Home_Menu");
     }
 
-    public void Final()
-    {
-        SceneManager.LoadScene("FINAL");
-    }
-
     public void Sign()
     {
         SceneManager.LoadScene("Authentication");
+    }
+
+    public void Instruct()
+    {
+        SceneManager.LoadScene("Instruction");
+    }
+
+    public void Setting()
+    {
+        SceneManager.LoadScene("Setting");
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
     }
 
     public void Exit()

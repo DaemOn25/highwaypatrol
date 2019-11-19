@@ -28,8 +28,6 @@ public class CarSpawner : MonoBehaviour
             carno = Random.Range(0,5);
             Instantiate(cars[carno], carpose, transform.rotation);
             timer = delay_timer;
-        }
-
-        
+        } 
     }
 }

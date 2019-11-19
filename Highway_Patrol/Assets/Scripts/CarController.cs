@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float carSpeed = 175f;
+    public static float carSpeed = 175f;
     public float maxpos_h = 2.15f;
     public float maxpos_v = 4.00f;
     public UiManager ui;
@@ -73,11 +73,11 @@ public class CarController : MonoBehaviour
 
         }
 
-        else
+        else          //when platform is !android
         {
             position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;    //updating the position every frame horizontally
             position.y += Input.GetAxis("Vertical") * carSpeed * Time.deltaTime;      //updating the position every frame vertically
-
+            //^to move the care left , right , up and down 
             
             position.y = Mathf.Clamp(position.y, -maxpos_v, maxpos_v);
 
@@ -88,38 +88,23 @@ public class CarController : MonoBehaviour
         //color loop between two colors 
         float t = Mathf.PingPong(Time.time, durationl) / durationl;
         lt.color = Color.Lerp(colorb, colorr, t);
-
-
-        /* ++tchanger;
-
-         if (tchanger % 5 == 0)
-         {
-
-                 //colorBlue();
-         }
-         if(tchanger % 7 == 0)
-         {
-            // colorRed();
-         }
-       */
-
     }
 
-/*
-    void  colorBlue()
-    {
-        SerializedObject halo = new SerializedObject(GetComponent("Halo"));
-        halo.FindProperty("m_Color").colorValue = colorb ;
-        halo.ApplyModifiedProperties();
-    }
 
-    void colorRed()
-    {
-        SerializedObject halo = new SerializedObject(GetComponent("Halo"));
-        halo.FindProperty("m_Color").colorValue = colorr;
-        halo.ApplyModifiedProperties();
-    }
-*/
+    //void  colorBlue()
+    //{
+    //    SerializedObject halo = new SerializedObject(GetComponent("Halo"));
+    //    halo.FindProperty("m_Color").colorValue = colorb ;
+    //    halo.ApplyModifiedProperties();
+    //}
+
+    //void colorRed()
+    //{
+    //    SerializedObject halo = new SerializedObject(GetComponent("Halo"));
+    //    halo.FindProperty("m_Color").colorValue = colorr;
+    //    halo.ApplyModifiedProperties();
+    //}
+
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -132,30 +117,30 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void TouchMove()
-    {
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            float middle = Screen.width / 2;
+    //void TouchMove()         // screen touce control 
+    //{
+    //    if(Input.touchCount > 0)
+    //    {
+    //        Touch touch = Input.GetTouch(0);
+    //        float middle = Screen.width / 2;
 
-            if (touch.position.x < middle && touch.phase == TouchPhase.Began)
-            {
-                MoveLeft();
-            }
+    //        if (touch.position.x < middle && touch.phase == TouchPhase.Began)
+    //        {
+    //            MoveLeft();
+    //        }
 
-            else if(touch.position.x > middle && touch.phase == TouchPhase.Began)
-            {
-                MoveRight();
-            }
+    //        else if(touch.position.x > middle && touch.phase == TouchPhase.Began)
+    //        {
+    //            MoveRight();
+    //        }
 
-            else
-            {
-                SetVelocityZero();
-            }
+    //        else
+    //        {
+    //            SetVelocityZero();
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
     public void MoveLeft()
     {

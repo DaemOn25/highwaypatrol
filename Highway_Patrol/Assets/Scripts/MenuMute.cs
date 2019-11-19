@@ -13,7 +13,6 @@ public class MenuMute : MonoBehaviour
 
     public void ChangeSprite()
     {
-       
         if(GetComponent<Image>().sprite == vol)
         {
             GetComponent<Image>().sprite = mute;

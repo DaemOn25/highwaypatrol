@@ -1,10 +1,7 @@
 ﻿using Proyecto26;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 using FullSerializer;
 
 public class AuthManager : MonoBehaviour

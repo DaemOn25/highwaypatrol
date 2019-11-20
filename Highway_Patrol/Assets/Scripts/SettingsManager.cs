@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
@@ -30,6 +28,4 @@ public class SettingsManager : MonoBehaviour
         CarController.carSpeed = 300f;
         tb.text = "Console : " + "Sensitivity is now extreme";
     }
-
-    
 }
